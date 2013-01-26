@@ -57,6 +57,7 @@ namespace PBTech
             get { return _transPoints[point]; }
             set { _transPoints[point] = value; }
         }
+
         public bool Active
         {
             get { return this._active; }
@@ -118,7 +119,9 @@ namespace PBTech
             {
                 float total = 0;
                 for (int i = 0; i < TransPoints.Count; i++)
+                {
                     total = total + TransPoints[0].Result;
+                }
                 return total / TransPoints.Count;
             }
         }

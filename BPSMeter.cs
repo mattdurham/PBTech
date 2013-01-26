@@ -30,6 +30,7 @@ namespace PBTech
             
 
         }
+
         #region Private Variables
         private BPSPoint[] _points;
         private string _name;

@@ -44,6 +44,7 @@ namespace PBTech
             this.peekPress = new System.Windows.Forms.Timer(this.components);
             this.sideTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addTransducerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusPBTech.SuspendLayout();
             this.menuMain.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -65,7 +66,7 @@ namespace PBTech
             // labelPSI
             // 
             this.labelPSI.Name = "labelPSI";
-            this.labelPSI.Size = new System.Drawing.Size(29, 17);
+            this.labelPSI.Size = new System.Drawing.Size(31, 17);
             this.labelPSI.Text = "0 psi";
             // 
             // menuMain
@@ -75,7 +76,8 @@ namespace PBTech
             this.configurationToolStripMenuItem,
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
-            this.saveGraphToolStripMenuItem});
+            this.saveGraphToolStripMenuItem,
+            this.startTestToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -85,7 +87,7 @@ namespace PBTech
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.configurationToolStripMenuItem.Text = "Configuration";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
@@ -99,14 +101,14 @@ namespace PBTech
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // saveGraphToolStripMenuItem
             // 
             this.saveGraphToolStripMenuItem.Name = "saveGraphToolStripMenuItem";
-            this.saveGraphToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.saveGraphToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.saveGraphToolStripMenuItem.Text = "Save Graph";
             this.saveGraphToolStripMenuItem.Click += new System.EventHandler(this.saveGraphToolStripMenuItem_Click);
             // 
@@ -157,19 +159,19 @@ namespace PBTech
             this.graphTrans.PanModifierKeys2 = System.Windows.Forms.Keys.None;
             this.graphTrans.PointDateFormat = "g";
             this.graphTrans.PointValueFormat = "G";
-            this.graphTrans.ScrollMaxX = 0;
-            this.graphTrans.ScrollMaxY = 0;
-            this.graphTrans.ScrollMaxY2 = 0;
-            this.graphTrans.ScrollMinX = 0;
-            this.graphTrans.ScrollMinY = 0;
-            this.graphTrans.ScrollMinY2 = 0;
+            this.graphTrans.ScrollMaxX = 0D;
+            this.graphTrans.ScrollMaxY = 0D;
+            this.graphTrans.ScrollMaxY2 = 0D;
+            this.graphTrans.ScrollMinX = 0D;
+            this.graphTrans.ScrollMinY = 0D;
+            this.graphTrans.ScrollMinY2 = 0D;
             this.graphTrans.Size = new System.Drawing.Size(618, 610);
             this.graphTrans.TabIndex = 0;
             this.graphTrans.ZoomButtons = System.Windows.Forms.MouseButtons.Left;
             this.graphTrans.ZoomButtons2 = System.Windows.Forms.MouseButtons.None;
             this.graphTrans.ZoomModifierKeys = System.Windows.Forms.Keys.None;
             this.graphTrans.ZoomModifierKeys2 = System.Windows.Forms.Keys.None;
-            this.graphTrans.ZoomStepFraction = 0.1;
+            this.graphTrans.ZoomStepFraction = 0.1D;
             // 
             // sideView
             // 
@@ -196,6 +198,13 @@ namespace PBTech
             this.addTransducerToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.addTransducerToolStripMenuItem.Text = "Add Transducer";
             // 
+            // startTestToolStripMenuItem
+            // 
+            this.startTestToolStripMenuItem.Name = "startTestToolStripMenuItem";
+            this.startTestToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.startTestToolStripMenuItem.Text = "Start Test";
+            this.startTestToolStripMenuItem.Click += new System.EventHandler(this.startTestToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +218,7 @@ namespace PBTech
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PBTech v2 Alpha";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusPBTech.ResumeLayout(false);
             this.statusPBTech.PerformLayout();
             this.menuMain.ResumeLayout(false);
@@ -239,6 +249,7 @@ namespace PBTech
         private System.Windows.Forms.ContextMenuStrip sideTreeMenu;
         private System.Windows.Forms.ToolStripMenuItem addTransducerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveGraphToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startTestToolStripMenuItem;
     }
 }
 

@@ -7,6 +7,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
+using ZedGraph;
+using System.Data.SQLite;
+
 
 
 
@@ -20,7 +23,10 @@ namespace PBTech
         private Transducer _transducer;
         DAQRead _dq;
         List<Transducer> _activeTransList;
-       
+        private Thread _readingThread;
+        IDAQInterface _daqInterface;
+        bool _reading = false;
+
         public MainForm()
         { 
             InitializeComponent();
@@ -31,6 +37,7 @@ namespace PBTech
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
             peekPress.Stop();
             _transducer = new Transducer();
             _transducer.TransName = "";
@@ -52,8 +59,7 @@ namespace PBTech
             _daqThread = new Thread(new ThreadStart(_dq.DAQStartRead));
             _daqThread.Priority = ThreadPriority.AboveNormal;
             timeDraw.Start();
-            _daqThread.Start();
-            //_dq.DAQStartRead();
+            _daqThread.Start();*/
         }
 
         private void UpdateList( List<float> list)
@@ -133,6 +139,7 @@ namespace PBTech
         /// <param name="e"></param>
         private void peekPress_Tick(object sender, EventArgs e)
         {
+            return;
             MccDaq.MccBoard theBoard = new MccDaq.MccBoard(0);
             short dValue;
             theBoard.AIn(0,MccDaq.Range.Bip5Volts,out dValue);
@@ -181,6 +188,65 @@ namespace PBTech
             sideView.Nodes.Add(node);
         }
 
-        
+        private void startTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _reading = true;
+            DAQTestHarness.DAQTest daTest1 = new DAQTestHarness.DAQTest(0);
+            LineItem lItem = graphTrans.GraphPane.AddCurve("Test", null, Color.Red, ZedGraph.SymbolType.None);
+            _daqInterface = new DAQTestHarness.DAQInterfaceTest();
+            _daqInterface.Setup(new DataRetrieved(RetrievedData), new IDAQ[] { daTest1 });
+            DataRetrieved dataRetrieved = new DataRetrieved(RetrievedData);
+            _readingThread = new Thread(new ThreadStart(_daqInterface.StartReading));
+            _readingThread.Start();
+        }
+
+        private void RetrievedData(Dictionary<IDAQ, IDAQPoint[]> readings)
+        {
+            if (this.InvokeRequired)
+            {
+                lock (this)
+                {
+                    if (!_reading)
+                    {
+                        return;
+                    }
+                    DataRetrieved dr = new DataRetrieved(RetrievedData);
+                    this.Invoke(dr, new object[] { readings });
+                    return;
+                }
+            }
+            if (!_reading)
+            {
+                return;
+            }
+           
+                graphTrans.GraphPane.Legend.IsVisible = true;
+                int curveListIndex = 0;
+                foreach (KeyValuePair<IDAQ, IDAQPoint[]> readingItem in readings)
+                {
+                    foreach (IDAQPoint point in readingItem.Value)
+                    {
+                        graphTrans.GraphPane.CurveList[curveListIndex].AddPoint(point.Time, point.Reading);
+                    }
+                    curveListIndex++;
+                   
+                }
+                graphTrans.AxisChange();
+                graphTrans.Refresh();
+               
+               
+            
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            lock (this)
+            {
+                _daqInterface.StopReading();
+                _reading = false;
+            }
+        }
+
+   
     }
 }

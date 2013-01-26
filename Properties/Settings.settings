@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PBTech.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CREATE_READING" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CREATE TABLE READING (r_id INTEGER PRIMARY KEY, r_date TEXT, r_name TEXT, r_description TEXT);</Value>
+    </Setting>
+    <Setting Name="CREATE_CHANNEL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CREATE TABLE CHANNEL (c_id INTEGER PRIMARY KEY, c_rid INTEGER, c_details TEXT, c_channelnumber INTEGER);</Value>
+    </Setting>
+    <Setting Name="CREATE_READING_DETAIL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CREATE TABLE READING_DETAIL (rd_id INTEGER PRIMARY KEY, rd_rid INTEGER, rd_cid INTEGER, rd_time INTEGER, rd_point INTEGER );</Value>
+    </Setting>
+    <Setting Name="INSERT_READING" Type="System.String" Scope="User">
+      <Value Profile="(Default)">INSERT INTO READING (r_date,r_name,r_description) VALUES (@date, @name, @description);
+select last_insert_rowid()</Value>
+    </Setting>
+    <Setting Name="INSERT_CHANNEL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">INSERT INTO CHANNEL (c_rid,c_details,c_channelnumber) VALUES (@rid, @details,@number);
+select last_insert_rowid()</Value>
+    </Setting>
+    <Setting Name="INSERT_READING_DETAIL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">INSERT INTO READING_DETAIL (rd_rid,rd_cid,rd_time,rd_point) VALUES (@rid, @cid, @time,@point);
+select last_insert_rowid()</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
