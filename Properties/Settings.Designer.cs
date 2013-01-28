@@ -38,8 +38,8 @@ namespace PBTech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CREATE TABLE CHANNEL (c_id INTEGER PRIMARY KEY, c_rid INTEGER, c_details TEXT, c_" +
-            "channelnumber INTEGER);")]
+        [global::System.Configuration.DefaultSettingValueAttribute("CREATE TABLE CHANNEL (c_id INTEGER PRIMARY KEY, c_rid INTEGER,c_ccid integer, c_d" +
+            "etails TEXT, c_channelnumber INTEGER);")]
         public string CREATE_CHANNEL {
             get {
                 return ((string)(this["CREATE_CHANNEL"]));
@@ -77,8 +77,8 @@ namespace PBTech.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("INSERT INTO CHANNEL (c_rid,c_details,c_channelnumber) VALUES (@rid, @details,@num" +
-            "ber);\r\nselect last_insert_rowid()")]
+        [global::System.Configuration.DefaultSettingValueAttribute("INSERT INTO CHANNEL (c_rid,c_details,c_channelnumber,c_ccid) VALUES (@rid, @detai" +
+            "ls,@number,@channelconfig);\r\nselect last_insert_rowid()")]
         public string INSERT_CHANNEL {
             get {
                 return ((string)(this["INSERT_CHANNEL"]));
@@ -98,6 +98,45 @@ namespace PBTech.Properties {
             }
             set {
                 this["INSERT_READING_DETAIL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CREATE TABLE CHANNEL_CONFIG (cc_id integer primary key,cc_name text, cc_psi, cc_o" +
+            "utputvolts, cc_offset real,cc_defaultchannel);")]
+        public string CREATE_CHANNEL_CONFIG {
+            get {
+                return ((string)(this["CREATE_CHANNEL_CONFIG"]));
+            }
+            set {
+                this["CREATE_CHANNEL_CONFIG"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("INSERT INTO CHANNEL_CONFIG (cc_name,cc_psi,cc_outputvolts,cc_offset,cc_defaultcha" +
+            "nnel) VALUES (@name,@psi,@outputvolts,@offset,@defaultchannel);\r\nselect last_ins" +
+            "ert_rowid();")]
+        public string INSERT_CHANNEL_CONFIG {
+            get {
+                return ((string)(this["INSERT_CHANNEL_CONFIG"]));
+            }
+            set {
+                this["INSERT_CHANNEL_CONFIG"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\mattdurham\\Dropbox\\pbtech.db3")]
+        public string DEFAULT_DB_PATH {
+            get {
+                return ((string)(this["DEFAULT_DB_PATH"]));
+            }
+            set {
+                this["DEFAULT_DB_PATH"] = value;
             }
         }
     }

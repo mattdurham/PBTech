@@ -6,7 +6,7 @@
       <Value Profile="(Default)">CREATE TABLE READING (r_id INTEGER PRIMARY KEY, r_date TEXT, r_name TEXT, r_description TEXT);</Value>
     </Setting>
     <Setting Name="CREATE_CHANNEL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CREATE TABLE CHANNEL (c_id INTEGER PRIMARY KEY, c_rid INTEGER, c_details TEXT, c_channelnumber INTEGER);</Value>
+      <Value Profile="(Default)">CREATE TABLE CHANNEL (c_id INTEGER PRIMARY KEY, c_rid INTEGER,c_ccid integer, c_details TEXT, c_channelnumber INTEGER);</Value>
     </Setting>
     <Setting Name="CREATE_READING_DETAIL" Type="System.String" Scope="User">
       <Value Profile="(Default)">CREATE TABLE READING_DETAIL (rd_id INTEGER PRIMARY KEY, rd_rid INTEGER, rd_cid INTEGER, rd_time INTEGER, rd_point INTEGER );</Value>
@@ -16,12 +16,22 @@
 select last_insert_rowid()</Value>
     </Setting>
     <Setting Name="INSERT_CHANNEL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">INSERT INTO CHANNEL (c_rid,c_details,c_channelnumber) VALUES (@rid, @details,@number);
+      <Value Profile="(Default)">INSERT INTO CHANNEL (c_rid,c_details,c_channelnumber,c_ccid) VALUES (@rid, @details,@number,@channelconfig);
 select last_insert_rowid()</Value>
     </Setting>
     <Setting Name="INSERT_READING_DETAIL" Type="System.String" Scope="User">
       <Value Profile="(Default)">INSERT INTO READING_DETAIL (rd_rid,rd_cid,rd_time,rd_point) VALUES (@rid, @cid, @time,@point);
 select last_insert_rowid()</Value>
+    </Setting>
+    <Setting Name="CREATE_CHANNEL_CONFIG" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CREATE TABLE CHANNEL_CONFIG (cc_id integer primary key,cc_name text, cc_psi, cc_outputvolts, cc_offset real,cc_defaultchannel);</Value>
+    </Setting>
+    <Setting Name="INSERT_CHANNEL_CONFIG" Type="System.String" Scope="User">
+      <Value Profile="(Default)">INSERT INTO CHANNEL_CONFIG (cc_name,cc_psi,cc_outputvolts,cc_offset,cc_defaultchannel) VALUES (@name,@psi,@outputvolts,@offset,@defaultchannel);
+select last_insert_rowid();</Value>
+    </Setting>
+    <Setting Name="DEFAULT_DB_PATH" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\mattdurham\Dropbox\pbtech.db3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

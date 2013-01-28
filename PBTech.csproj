@@ -48,7 +48,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,23 +79,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BPSMeter.cs" />
-    <Compile Include="Chronograph.cs" />
-    <Compile Include="DAQTestHarness.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="DatabaseTest.cs" />
-    <Compile Include="FPSMeter.cs" />
-    <Compile Include="IDAQ.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="DAQ\DAQReader.cs" />
+    <Compile Include="UI\ReadingSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="UI\ReadingSetup.Designer.cs">
+      <DependentUpon>ReadingSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChannelSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChannelSetup.Designer.cs">
+      <DependentUpon>ChannelSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAQ\DAQTestHarness.cs" />
+    <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\DatabaseTest.cs" />
+    <Compile Include="DAQ\IDAQ.cs" />
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UI\ReadingSetup.resx">
+      <DependentUpon>ReadingSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChannelSetup.resx">
+      <DependentUpon>ChannelSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,10 +118,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TransducerForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TransducerForm.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,14 +133,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="DAQRead.cs" />
-    <Compile Include="Transducer.cs" />
-    <Compile Include="TransducerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TransducerForm.Designer.cs">
-      <DependentUpon>TransducerForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +151,11 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cbw32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
