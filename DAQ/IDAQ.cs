@@ -45,6 +45,7 @@ namespace PBTech
         float Reading {get;}
         int Channel {get;}
         int Time {get;}
+        float PSI { get; }
     }
 
 

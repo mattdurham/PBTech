@@ -50,7 +50,7 @@ namespace PBTech
                 return;
             }
             _reading = _db.CreateReading(_txtName.Text, _txtDescription.Text);
-            foreach(object obj in _channelList.SelectedItems)
+            foreach(object obj in _channelList.CheckedItems)
             {
                 ChannelConfig cc = (ChannelConfig)obj;
                 _db.CreateChannelForReading(_reading, cc, "", cc.DefaultChannel);

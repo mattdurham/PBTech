@@ -127,6 +127,14 @@ namespace PBTech
                 }
             }
 
+            public float PSI
+            {
+                get
+                {
+                    return _reading;
+                }
+            }
+
             #endregion
         }
     }

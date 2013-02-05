@@ -93,8 +93,16 @@ namespace PBTech
                 MessageBox.Show("PSI needs to be a number");
                 return;
             }
-
-            ChannelConfig cc = _db.CreateChannelConfig(_textName.Text, psi, OutputVoltRange.ZeroToFiveVolts, offset, channel);
+            OutputVoltRange range = 0;
+            if (_cmbOutput.SelectedIndex == 0)
+            {
+                range = OutputVoltRange.ZeroToFiveVolts;
+            }
+            else if (_cmbOutput.SelectedIndex == 1)
+            {
+                range = OutputVoltRange.PointFiveToFourPointFive;
+            }
+            ChannelConfig cc = _db.CreateChannelConfig(_textName.Text, psi, range, offset, channel);
             _listChannelConfig.Items.Add(cc);
         }
     }

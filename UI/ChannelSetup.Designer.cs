@@ -126,7 +126,8 @@
             this._cmbOutput.Enabled = false;
             this._cmbOutput.FormattingEnabled = true;
             this._cmbOutput.Items.AddRange(new object[] {
-            "0 - 5 Volts"});
+            "0 - 5 Volts",
+            ".5 - 4.5 Volts"});
             this._cmbOutput.Location = new System.Drawing.Point(592, 114);
             this._cmbOutput.Name = "_cmbOutput";
             this._cmbOutput.Size = new System.Drawing.Size(227, 21);
@@ -155,7 +156,7 @@
             this._lblDefaultChannel.AutoSize = true;
             this._lblDefaultChannel.Location = new System.Drawing.Point(244, 170);
             this._lblDefaultChannel.Name = "_lblDefaultChannel";
-            this._lblDefaultChannel.Size = new System.Drawing.Size(83, 13);
+            this._lblDefaultChannel.Size = new System.Drawing.Size(106, 13);
             this._lblDefaultChannel.TabIndex = 10;
             this._lblDefaultChannel.Text = "Default DAQChannel";
             // 

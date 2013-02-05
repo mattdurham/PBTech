@@ -128,6 +128,9 @@ namespace PBTech
                 case OutputVoltRange.ZeroToFiveVolts:
                     outputRange = 5;
                     break;
+                case OutputVoltRange.PointFiveToFourPointFive:
+                    outputRange = 4;
+                    break;
                 default:
                     throw new Exception("Invalid output range");
             }
@@ -217,6 +220,9 @@ namespace PBTech
                 {
                     case 5:
                         cc.VoltRange = OutputVoltRange.ZeroToFiveVolts;
+                        break;
+                    case 4:
+                        cc.VoltRange = OutputVoltRange.PointFiveToFourPointFive;
                         break;
                     default:
                         throw new Exception("Invalid volt range");
@@ -403,6 +409,12 @@ namespace PBTech
             }
         }
 
+        public override string ToString()
+        {
+            return Time.ToString() + ":" + Reading.ToString();
+        }
+
+
         #region IDAQPoint Members
 
         float IDAQPoint.Reading
@@ -419,7 +431,7 @@ namespace PBTech
         #endregion
     }
 
-    public enum OutputVoltRange { ZeroToFiveVolts};
+    public enum OutputVoltRange { ZeroToFiveVolts, PointFiveToFourPointFive};
 
     public class ChannelConfig
     {
@@ -437,17 +449,19 @@ namespace PBTech
         /// <returns></returns>
         public float GetPsi(float volts)
         {
-            float maxVolt = 0;
+            float percentage = 0F;
             switch(VoltRange)
             {
                 case OutputVoltRange.ZeroToFiveVolts:
-                    maxVolt = 5;
-                    break;
+                    percentage  = (volts - Offset) / 5;
+                    return percentage * PSI;
+                case OutputVoltRange.PointFiveToFourPointFive:
+                    percentage = ((volts - .5F) - Offset) / 4;
+                    return percentage * PSI;
                 default:
                     throw new Exception("Invalid Volt Range");
             }
-            float percentage = (volts - Offset) / maxVolt;
-            return percentage * PSI;
+           
         }
 
         public override string ToString()

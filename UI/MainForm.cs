@@ -9,6 +9,7 @@ using System.Collections;
 using System.Threading;
 using ZedGraph;
 using System.Data.SQLite;
+using MccDaq;
 
 
 
@@ -115,10 +116,10 @@ namespace PBTech
             {
                 if (_peekBoard == null)
                 {
-                    _peekBoard = new MccDaq.MccBoard(0);
+                    _peekBoard = new MccDaq.MccBoard();
                 }
                 short dValue;
-                _peekBoard.AIn(0, MccDaq.Range.Bip5Volts, out dValue);
+                ErrorInfo ei = _peekBoard.AIn(0, MccDaq.Range.Bip5Volts, out dValue);
                 float engVal;
                 MccDaq.ErrorInfo info = _peekBoard.ToEngUnits(MccDaq.Range.Bip5Volts, dValue, out engVal);
                 
@@ -198,7 +199,8 @@ namespace PBTech
             {
                 foreach (IDAQPoint point in readingItem.Value)
                 {
-                    graphTrans.GraphPane.CurveList[curveListIndex].AddPoint(point.Time, point.Reading);
+                    
+                    graphTrans.GraphPane.CurveList[curveListIndex].AddPoint(point.Time, point.PSI);
                 }
                 curveListIndex++;
 

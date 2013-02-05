@@ -25,7 +25,7 @@ namespace PBTech
             //We always want to read SCAN_RATE samples per channel
             int scanRate = _daqs.Length * SCAN_RATE;
             int iteration = 0;
-            while(_continueReading)
+            while (_continueReading)
             {
                 int memHandle = MccDaq.MccService.WinBufAlloc(scanRate);
                 MccDaq.MccBoard theBoard = new MccDaq.MccBoard(0);
@@ -41,25 +41,26 @@ namespace PBTech
                 }
                 MccDaq.MccService.WinBufFree(memHandle);
 
-                int currentIndex = 0;
+                
                 Dictionary<IDAQ, IDAQPoint[]> readingDictionary = new Dictionary<IDAQ, IDAQPoint[]>();
-                //This complicated logic comes from we get a flat array and need to split it up into parts.
                 foreach (IDAQ daq in _daqs)
                 {
-                    DAQChannel chDaq = (DAQChannel)daq;
-                    IDAQPoint[] daqValues = new IDAQPoint[SCAN_RATE];
-                    int startPoint = currentIndex * SCAN_RATE;
-                    for (int i = startPoint; i < (currentIndex + SCAN_RATE); i++)
+                    readingDictionary.Add(daq, new IDAQPoint[SCAN_RATE]);
+                }
+
+                for (int i = 0; i < scanRate;)
+                {
+                    foreach (IDAQ daq in _daqs)
                     {
+                        DAQChannel chDaq = (DAQChannel)daq;
                         ReadingDetail rd = new ReadingDetail();
+                        int currentIndex = i / _daqs.Length;
                         rd.ParentChannel = chDaq;
-                        rd.Time =  (i - (startPoint)) + (iteration * SCAN_RATE);
-                        rd.Reading = chDaq.Config.GetPsi(outVal[i]);
-                        daqValues[i + (startPoint)] = rd;
-                        chDaq.ReadingDetails.Add(rd);
+                        rd.Time = currentIndex + (iteration * SCAN_RATE);
+                        rd.Reading = outVal[i];
+                        readingDictionary[daq][currentIndex] = rd;
+                        i++;
                     }
-                    readingDictionary.Add(daq, daqValues);
-                    currentIndex++;
                 }
                 iteration++;
                 _dataRetrieved(readingDictionary);
@@ -122,6 +123,14 @@ namespace PBTech
                 get
                 {
                     return _time;
+                }
+            }
+
+            public float PSI
+            {
+                get
+                {
+                    return _reading;
                 }
             }
 
