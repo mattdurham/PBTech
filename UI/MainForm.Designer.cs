@@ -43,6 +43,7 @@ namespace PBTech
             this.peekPress = new System.Windows.Forms.Timer(this.components);
             this.sideTreeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addTransducerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSelectedToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusPBTech.SuspendLayout();
             this.menuMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -75,7 +76,8 @@ namespace PBTech
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
             this.channelSetupToolStripMenuItem,
-            this.startTestToolStripMenuItem});
+            this.startTestToolStripMenuItem,
+            this.saveSelectedToExcelToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -170,6 +172,13 @@ namespace PBTech
             this.addTransducerToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.addTransducerToolStripMenuItem.Text = "Add Transducer";
             // 
+            // saveSelectedToExcelToolStripMenuItem
+            // 
+            this.saveSelectedToExcelToolStripMenuItem.Name = "saveSelectedToExcelToolStripMenuItem";
+            this.saveSelectedToExcelToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
+            this.saveSelectedToExcelToolStripMenuItem.Text = "Save Selected To Excel";
+            this.saveSelectedToExcelToolStripMenuItem.Click += new System.EventHandler(this.saveSelectedToExcelToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,6 +223,7 @@ namespace PBTech
         private System.Windows.Forms.ToolStripMenuItem startTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem channelSetupToolStripMenuItem;
         private System.Windows.Forms.ListBox _listReadings;
+        private System.Windows.Forms.ToolStripMenuItem saveSelectedToExcelToolStripMenuItem;
     }
 }
 

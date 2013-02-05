@@ -59,6 +59,7 @@ namespace PBTech
                         rd.Time = currentIndex + (iteration * SCAN_RATE);
                         rd.Reading = outVal[i];
                         readingDictionary[daq][currentIndex] = rd;
+                        chDaq.ReadingDetails.Add(rd);
                         i++;
                     }
                 }

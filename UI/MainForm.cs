@@ -10,6 +10,9 @@ using System.Threading;
 using ZedGraph;
 using System.Data.SQLite;
 using MccDaq;
+using OfficeOpenXml.Table;
+using System.IO;
+using OfficeOpenXml;
 
 
 
@@ -246,13 +249,46 @@ namespace PBTech
                     graphTrans.GraphPane.AddCurve(ch.Config.Name, null, Color.Red, ZedGraph.SymbolType.None);
                     foreach (ReadingDetail rd in ch.ReadingDetails)
                     {
-                        graphTrans.GraphPane.CurveList[curveListIndex].AddPoint(rd.Time, rd.Reading);
+                        graphTrans.GraphPane.CurveList[curveListIndex].AddPoint(rd.Time, rd.PSI);
                     }
                     curveListIndex++;
                 }
             }
             graphTrans.AxisChange();
             graphTrans.Refresh();
+        }
+
+        private void saveSelectedToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_currentReading == null)
+            {
+                return;
+            }
+            FileInfo newFile = new FileInfo(_currentReading.Name + ".xlsx");
+
+            ExcelPackage pck = new ExcelPackage(newFile);
+            //Add the Content sheet
+            var ws = pck.Workbook.Worksheets.Add(_currentReading.Name);
+            int columnIndex = 1;
+            ws.InsertRow(1, _currentReading.ChannelList[0].ReadingDetails.Count);
+            foreach (DAQChannel ch in _currentReading.ChannelList)
+            {
+                ws.Cells[1, columnIndex].Value = ch.Config.Name;
+                columnIndex++;
+            }
+            columnIndex = 1;
+            int rowIndex = 2;
+            foreach (DAQChannel ch in _currentReading.ChannelList)
+            {
+                foreach (ReadingDetail reading in ch.ReadingDetails)
+                {
+                    ws.Cells[rowIndex, columnIndex].Value = reading.PSI;
+                    rowIndex++;
+                }
+                rowIndex = 2;
+                columnIndex++;
+            }
+            pck.Save();
         }
 
     }

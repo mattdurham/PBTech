@@ -315,7 +315,7 @@ namespace PBTech
                 rd.ID = reader.GetInt32(0);
                 rd.ParentChannel = ch;
                 rd.Time = reader.GetInt32(1);
-                rd.Reading = Convert.ToInt32(reader.GetFloat(2));
+                rd.Reading = reader.GetFloat(2);
                 ch.ReadingDetails.Add(rd);
             }
             reader.Close();

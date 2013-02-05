@@ -59,6 +59,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=3.1.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="MCCDAQ, Version=1.0.917.0, Culture=neutral, PublicKeyToken=a37eefcf5c6ca10a">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\MCCDAQ.DLL</HintPath>
@@ -156,6 +160,7 @@
     <Content Include="cbw32.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="EPPlus.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
